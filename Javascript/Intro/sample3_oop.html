@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Creating An Object In OOP(Object Oriented Programming)</title>
+  </head>
+  <body>
+    <script>
+      //ES5 we use Functions as classes
+      // constructor Function
+      function Person(fname, lname) {
+        this.fname = fname;
+        this.lname = lname;
+      }
+
+      //   By Instiantiating or using the Constructor function we can create An Object
+
+      var student1 = new Person("Murali", "krishna");
+      var student2 = new Person("Ram", "Krishna");
+
+      console.log(student1);
+      console.log(student2);
+    </script>
+  </body>
+</html>

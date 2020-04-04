@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button onclick="changeColor()">Change Color</button>
+    <ul>
+      <li>Ram</li>
+      <li>Ravi</li>
+      <li>Sam</li>
+    </ul>
+    <script>
+      var liItems = document.getElementsByTagName("li");
+      function changeColor() {
+        for (i = 0; i < liItems.length; i++) {
+          liItems[i].style.color = "red";
+        }
+      }
+      var students = [
+        "Murali",
+        "Ram",
+        "Mahesh",
+        "Sunil",
+        "Abi",
+        "Bala",
+        "Chandra",
+        "Divya",
+      ];
+      //   console.log(students.length); // Length method will give total No of values in Array
+      //   console.log(students[3]); // We access values with Index (Index start from 0)
+      //   console.log(students[2]);
+      //   students.push("Kiran"); //Push Method will add a value to the Last of the Array
+      //   students.unshift("VMK"); //Unshift Method will add a value to the Beginning of tha Array
+      //   students.splice(2, 0, "Chiru"); //Splice Method will add a value at Specified Index
+
+      //   students.pop(); //POP method will remove the last value of the array
+      //   students.shift(); //Shift method will remove the First Value of the Array
+      //   students.splice(2, 1); //Splice method with 2 Arguments will remove the Specified value
+
+      //   students.sort(); // Sort will sort the array
+      //   students.reverse(); // Will reverse the Array
+      //   console.log(students);
+
+      //  For loop can be used to Display all values
+      //   for (i = 0; i < students.sort().length; i++) {
+      //     document.write(students[i] + "<br>");
+      //   }
+
+      //Map statement Can be uses to Interate through all the values of the Array
+      //   students.map(function (obj) {
+      //     document.write(obj + "<br>");
+      //   });
+
+      // For Each statement also will loop throgh all the items in an array
+      //   students.forEach(function (val) {
+      //     document.write(val + "<br>");
+      //   });
+
+      //   var mNames = students.filter(function (val) {
+      //     return val.indexOf("M") == 0;
+      //   });
+      //   console.log(mNames);
+
+      //   var nam = students.find(function (val) {
+      //     return val.indexOf("A") == 0;
+      //   });
+
+      //   console.log(nam);
+    </script>
+  </body>
+</html>
