@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button
+      onclick="sayhello()"
+      onmouseover="mouseHoverEvent()"
+      onmouseout="mouseOutEvent()"
+      ondblclick="dbEventClick()"
+    >
+      Clic Me
+    </button>
+    <!-- onclick is Event Handler -->
+    <!-- sayHello() is Function Calling -->
+    <script>
+      function sayhello() {
+        console.log("You have clicked on the Button");
+      }
+
+      function mouseHoverEvent() {
+        console.log("You Have Hovered the Mouse");
+      }
+
+      function mouseOutEvent() {
+        console.log("You Have mage Mouse out Event");
+      }
+      function dbEventClick() {
+        console.log("You Have Double Clicked on the Button");
+      }
+    </script>
+  </body>
+</html>

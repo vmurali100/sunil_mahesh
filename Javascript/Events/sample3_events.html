@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="">
+      <label for="fname">First Name :</label>
+      <input type="text" /> <br />
+      <select name="" id="" onchange="slectCity()">
+        <option value="">Select City</option>
+        <option value="Bangalore">Bangalore</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Kochin">Kochin</option>
+      </select>
+      <br />
+      <button type="button" onclick="addUser()">Add User</button>
+    </form>
+
+    <script>
+      function addUser() {
+        console.log("add User is called");
+      }
+
+      function slectCity() {
+        console.log("slectCity is called");
+      }
+    </script>
+  </body>
+</html>

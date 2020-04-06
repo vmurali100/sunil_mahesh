@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input
+      type="tel"
+      name=""
+      id=""
+      onfocus="focusEvent()"
+      onblur="blurEvent()"
+      onkeydown="keyDownEvent()"
+      onkeypress="keyPressEvent()"
+      onkeyup="keyUpEvent()"
+      onchange="chaneEvent()"
+    />
+    <script>
+      function chaneEvent() {
+        console.log("chaneEvent is happend");
+      }
+      function keyPressEvent() {
+        console.log("keyPressEvent is Happened");
+      }
+
+      function keyUpEvent() {
+        console.log(" keyUpEvent is Happened");
+      }
+      function keyDownEvent() {
+        console.log("keyDownEvent event Happed");
+      }
+      function focusEvent() {
+        console.log("You have Focused in Input");
+      }
+      function mouseHoverEvent() {
+        console.log("You Have Hovered the Mouse");
+      }
+
+      function mouseOutEvent() {
+        console.log("You Have mage Mouse out Event");
+      }
+
+      function blurEvent() {
+        console.log("You have Blured or Came out of Input");
+      }
+    </script>
+  </body>
+</html>
