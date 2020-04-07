@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form>
+      <label for="fname">First Name :</label>
+      <input type="text" name="" id="fname" /> <br />
+      <label for="lname">Last Name :</label>
+      <input type="text" name="" id="lname" /> <br />
+      <label for="email">Email : </label>
+      <input type="email" name="" id="email" /> <br />
+      <button onclick="registerUser()" type="button">Register</button>
+    </form>
+    <hr />
+    <div id="demo" onclick="setValues()"></div>
+    <script>
+      var user;
+      function registerUser() {
+        user = {
+          fname: document.getElementById("fname").value,
+          lname: document.getElementById("lname").value,
+          email: document.getElementById("email").value,
+        };
+        console.log(user);
+        var results = "";
+        for (a in user) {
+          results = results + user[a] + "<br>";
+        }
+        document.getElementById("demo").innerHTML = results;
+        clearData();
+      }
+
+      function clearData() {
+        document.getElementById("fname").value = "";
+        document.getElementById("lname").value = "";
+        document.getElementById("email").value = "";
+      }
+
+      function setValues() {
+        document.getElementById("fname").value = user.fname;
+        document.getElementById("lname").value = user.lname;
+        document.getElementById("email").value = user.email;
+      }
+    </script>
+  </body>
+</html>
