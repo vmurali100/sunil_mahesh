@@ -22,12 +22,19 @@
         <th>First Name</th>
         <th>Last Name</th>
         <th>Email</th>
+        <th>Edit</th>
+        <th>Delete</th>
       </thead>
       <tbody id="userTable"></tbody>
     </table>
     <script>
       var user;
-      var users = [];
+      var users = JSON.parse(localStorage.getItem("users"));
+      if (users !== null) {
+        displayAllUsers(users);
+      } else {
+        users = [];
+      }
       function registerUser() {
         var check;
         user = {
@@ -43,9 +50,17 @@
         }
 
         if (check != true) {
-          users.push(user);
-          displayAllUsers();
-          clearData(user);
+          var pattern = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/s;
+
+          if (pattern.test(user.email)) {
+            users.push(user);
+            displayAllUsers();
+            //TO store the Data in Browser
+            localStorage.setItem("users", JSON.stringify(users));
+            clearData(user);
+          } else {
+            alert("Please enter a valid Email ");
+          }
         } else {
           alert("Please Enter All Values");
         }
@@ -60,6 +75,18 @@
             myTd.innerHTML = user[a];
             myTr.appendChild(myTd);
           }
+          var editTd = document.createElement("td");
+          var deleteTd = document.createElement("td");
+
+          var editBtn = document.createElement("button");
+          editBtn.innerHTML = "Edit";
+          var deleteBtn = document.createElement("button");
+          deleteBtn.innerHTML = "Delete";
+
+          editTd.appendChild(editBtn);
+          deleteTd.appendChild(deleteBtn);
+          myTr.appendChild(editTd);
+          myTr.appendChild(deleteTd);
 
           // var mytd1 = document.createElement("td");
           // var mytd2 = document.createElement("td");
