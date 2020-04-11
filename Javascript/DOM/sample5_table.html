@@ -13,7 +13,10 @@
       <input type="text" name="" id="lname" /> <br />
       <label for="email">Email : </label>
       <input type="email" name="" id="email" /> <br />
+      <label for="date">Date</label>
+      <input type="date" id="date" /> <br />
       <button onclick="registerUser()" type="button">Register</button>
+      <button type="button" onclick="updateUser()">Update</button>
     </form>
     <hr />
     <div id="demo" onclick="setValues()"></div>
@@ -22,6 +25,8 @@
         <th>First Name</th>
         <th>Last Name</th>
         <th>Email</th>
+        <th>ID</th>
+        <th>Date</th>
         <th>Edit</th>
         <th>Delete</th>
       </thead>
@@ -29,6 +34,7 @@
     </table>
     <script>
       var user;
+      var index;
       var users = JSON.parse(localStorage.getItem("users"));
       if (users !== null) {
         displayAllUsers(users);
@@ -41,6 +47,8 @@
           fname: document.getElementById("fname").value,
           lname: document.getElementById("lname").value,
           email: document.getElementById("email").value,
+          id: Math.round(Math.random() * 100000),
+          date: document.getElementById("date").value,
         };
 
         for (a in user) {
@@ -68,7 +76,7 @@
 
       function displayAllUsers() {
         document.getElementById("userTable").innerHTML = "";
-        users.map(function (user) {
+        users.map(function (user, i) {
           var myTr = document.createElement("tr");
           for (a in user) {
             var myTd = document.createElement("td");
@@ -80,8 +88,10 @@
 
           var editBtn = document.createElement("button");
           editBtn.innerHTML = "Edit";
+          editBtn.setAttribute("onclick", "editUser(" + i + ")");
           var deleteBtn = document.createElement("button");
           deleteBtn.innerHTML = "Delete";
+          deleteBtn.setAttribute("onclick", "deleteUser(" + i + ")");
 
           editTd.appendChild(editBtn);
           deleteTd.appendChild(deleteBtn);
@@ -97,8 +107,44 @@
 
       function clearData(user) {
         for (a in user) {
-          document.getElementById(a).value = "";
+          if (a !== "id") {
+            document.getElementById(a).value = "";
+          }
         }
+      }
+
+      function editUser(i) {
+        index = i;
+        for (a in users[i]) {
+          if (a !== "id") {
+            document.getElementById(a).value = users[i][a];
+          }
+        }
+        document.getElementById("email").setAttribute("disabled", true);
+
+        // document.getElementById("fname").value = users[i].fname;
+        // document.getElementById("lname").value = users[i].lname;
+        // document.getElementById("email").value = users[i].email;
+        // document.getElementById("date").value = users[i].date;
+      }
+
+      function deleteUser(i) {
+        console.log("deleteUser is called " + i);
+        users.splice(i, 1);
+        displayAllUsers();
+      }
+
+      function updateUser() {
+        user = {
+          fname: document.getElementById("fname").value,
+          lname: document.getElementById("lname").value,
+          email: document.getElementById("email").value,
+        };
+        user.id = users[index].id;
+        user.date = document.getElementById("date").value;
+        users[index] = user;
+        displayAllUsers();
+        clearData(user);
       }
     </script>
   </body>
