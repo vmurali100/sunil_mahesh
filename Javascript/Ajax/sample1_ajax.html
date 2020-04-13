@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button onclick="getDataFromServer()">Get Data</button>
+    <table border="1">
+      <thead>
+        <th>ID</th>
+
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Website</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </thead>
+      <tbody id="userTable"></tbody>
+    </table>
+
+    <form>
+      <label for="id">ID</label>
+      <input type="text" id="id" /> <br />
+      <label for="fname">First Name :</label>
+      <input type="text" name="" id="name" /> <br />
+      <label for="lname">Last Name :</label>
+      <input type="text" name="" id="username" /> <br />
+      <label for="email">Email : </label>
+      <input type="email" name="" id="email" /> <br />
+      <label for="phone">Phone</label>
+      <input type="text" id="phone" /> <br />
+      <label for="website">Website</label>
+      <input type="text" id="website" /> <br />
+      <button onclick="registerUser()" type="button">Register</button>
+      <button type="button" onclick="updateUser()">Update</button>
+    </form>
+
+    <script>
+      users = [];
+      function getDataFromServer() {
+        console.log("getDataFromServer called");
+        var getInfo = new XMLHttpRequest();
+
+        getInfo.onreadystatechange = function () {
+          if (getInfo.status == 200 && getInfo.readyState == 4) {
+            console.log(JSON.parse(getInfo.response));
+            users = JSON.parse(getInfo.response);
+            displayAllUsers();
+          }
+        };
+
+        getInfo.open("GET", "https://jsonplaceholder.typicode.com/users");
+        getInfo.send();
+      }
+
+      function displayAllUsers() {
+        document.getElementById("userTable").innerHTML = "";
+        users.map(function (user, i) {
+          var myTr = document.createElement("tr");
+          for (a in user) {
+            if (a !== "company" && a !== "address") {
+              var myTd = document.createElement("td");
+              myTd.innerHTML = user[a];
+              myTr.appendChild(myTd);
+            }
+          }
+          var editTd = document.createElement("td");
+          var deleteTd = document.createElement("td");
+
+          var editBtn = document.createElement("button");
+          editBtn.innerHTML = "Edit";
+          editBtn.setAttribute("onclick", "editUser(" + i + ")");
+          var deleteBtn = document.createElement("button");
+          deleteBtn.innerHTML = "Delete";
+          deleteBtn.setAttribute("onclick", "deleteUser(" + i + ")");
+
+          editTd.appendChild(editBtn);
+          deleteTd.appendChild(deleteBtn);
+          myTr.appendChild(editTd);
+          myTr.appendChild(deleteTd);
+
+          // var mytd1 = document.createElement("td");
+          // var mytd2 = document.createElement("td");
+          // var mytd2 = document.createElement("td");
+          document.getElementById("userTable").appendChild(myTr);
+        });
+      }
+
+      function deleteUser(i) {
+        console.log("deleteUser is called " + i);
+        users.splice(i, 1);
+        displayAllUsers();
+      }
+
+      function editUser(i) {
+        index = i;
+        console.log(users[i]);
+        for (a in users[i]) {
+          if (a !== "company" && a !== "address") {
+            document.getElementById(a).value = users[i][a];
+          }
+        }
+        // document.getElementById("email").setAttribute("disabled", true);
+      }
+
+      function updateUser() {
+        user = {
+          id: "",
+          name: "",
+          username: "",
+          email: "",
+
+          phone: "",
+          website: "",
+        };
+
+        for (a in user) {
+          user[a] = document.getElementById(a).value;
+        }
+        users[index] = user;
+        displayAllUsers();
+        clearData(user);
+      }
+
+      function clearData(user) {
+        for (a in user) {
+          if (a !== "company" && a !== "address") {
+            document.getElementById(a).value = "";
+          }
+        }
+      }
+      getDataFromServer();
+    </script>
+  </body>
+</html>
