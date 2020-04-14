@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <table border="1">
+      <thead>
+        <th>ID</th>
+
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Website</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </thead>
+      <tbody id="userTable"></tbody>
+    </table>
+    <script>
+      users = [];
+      function getUsers() {
+        return new Promise(function (resolve, reject) {
+          var getInfo = new XMLHttpRequest();
+
+          getInfo.onreadystatechange = function () {
+            if (getInfo.status == 200 && getInfo.readyState == 4) {
+              users = JSON.parse(getInfo.response);
+              resolve(users);
+            }
+          };
+
+          getInfo.open("GET", "https://jsonplaceholder.typicode.com/users");
+          getInfo.send();
+        });
+      }
+
+      function displayAllUsers() {
+        document.getElementById("userTable").innerHTML = "";
+        users.map(function (user, i) {
+          var myTr = document.createElement("tr");
+          for (a in user) {
+            if (a !== "company" && a !== "address") {
+              var myTd = document.createElement("td");
+              myTd.innerHTML = user[a];
+              myTr.appendChild(myTd);
+            }
+          }
+          var editTd = document.createElement("td");
+          var deleteTd = document.createElement("td");
+
+          var editBtn = document.createElement("button");
+          editBtn.innerHTML = "Edit";
+          editBtn.setAttribute("onclick", "editUser(" + i + ")");
+          var deleteBtn = document.createElement("button");
+          deleteBtn.innerHTML = "Delete";
+          deleteBtn.setAttribute("onclick", "deleteUser(" + i + ")");
+
+          editTd.appendChild(editBtn);
+          deleteTd.appendChild(deleteBtn);
+          myTr.appendChild(editTd);
+          myTr.appendChild(deleteTd);
+
+          document.getElementById("userTable").appendChild(myTr);
+        });
+      }
+
+      //   getUsers(displayAllUsers); //TO get the Users from Server
+      //   displayAllUsers(); //TO display the users in table
+
+      //   How to Solve
+      // callback
+
+      var activity = new Promise(function (resolve, reject) {
+        var foodavailable = false;
+        if (foodavailable) {
+          resolve("Hello ... food is avilable. I am Bringing ");
+        } else {
+          reject("Sorry .. food is not avaible . Please arrange some Fruits");
+        }
+      });
+      activity.then(
+        function (res) {
+          console.log(res);
+        },
+        function (error) {
+          console.log(error);
+        }
+      );
+
+      //   getUsers().then(function (users) {
+      //     displayAllUsers();
+      //   });
+
+      async function getAllUsers() {
+        users = await getUsers();
+        displayAllUsers();
+      }
+
+      getAllUsers();
+    </script>
+  </body>
+</html>
